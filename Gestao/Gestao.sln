@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.App", "Gestao.App\Gestao.App.csproj", "{150C2853-78A6-490A-8EE3-28F824107E31}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Business", "Gestao.Business\Gestao.Business.csproj", "{57B144F3-4C1B-491F-AF2C-AF922EB6B55E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{150C2853-78A6-490A-8EE3-28F824107E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{150C2853-78A6-490A-8EE3-28F824107E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{150C2853-78A6-490A-8EE3-28F824107E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B144F3-4C1B-491F-AF2C-AF922EB6B55E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B144F3-4C1B-491F-AF2C-AF922EB6B55E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B144F3-4C1B-491F-AF2C-AF922EB6B55E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B144F3-4C1B-491F-AF2C-AF922EB6B55E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
