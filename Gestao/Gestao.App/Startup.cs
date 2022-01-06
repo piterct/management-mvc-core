@@ -1,5 +1,7 @@
 using Gestao.App.Data;
+using Gestao.Business.Interfaces;
 using Gestao.Data.Context;
+using Gestao.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -35,6 +37,11 @@ namespace Gestao.App
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped<GestaoDbContext>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
