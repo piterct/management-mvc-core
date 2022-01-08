@@ -1,4 +1,4 @@
-﻿using Gestao.App.Models;
+﻿using Gestao.App.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
