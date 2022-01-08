@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gestao.App.ViewModels;
 using Gestao.Business.Interfaces;
+using Gestao.Business.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -21,7 +22,7 @@ namespace Gestao.App.Controllers
             _fornecedorRepository = fornecedorRepository;
             _mapper = mapper;
         }
-       
+
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
@@ -31,12 +32,29 @@ namespace Gestao.App.Controllers
         {
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
 
-            if(fornecedorViewModel == null)
+            if (fornecedorViewModel == null)
             {
                 return NotFound();
             }
 
             return View(fornecedorViewModel);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(FornecedorViewModel fornecedorViewModel)
+        {
+            if (!ModelState.IsValid) return View(fornecedorViewModel);
+
+            var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
+            await _fornecedorRepository.Adicionar(fornecedor);
+
+            return RedirectToAction(nameof(Index));
         }
 
         private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
