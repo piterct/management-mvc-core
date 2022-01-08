@@ -3,16 +3,13 @@ using Gestao.App.ViewModels;
 using Gestao.Business.Interfaces;
 using Gestao.Business.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gestao.App.Controllers
 {
-    public class FornecedoresController : Controller
+    public class FornecedoresController : BaseController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
         private readonly IMapper _mapper;
@@ -57,9 +54,67 @@ namespace Gestao.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var fornecedorViewModel = ObterFornecedorProdutosEndereco(id);
+
+            if (fornecedorViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(fornecedorViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, FornecedorViewModel fornecedorViewModel)
+        {
+
+            if (id != fornecedorViewModel.Id) return NotFound();
+
+            if (!ModelState.IsValid) return View(fornecedorViewModel);
+
+            var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
+            await _fornecedorRepository.Atualizar(fornecedor);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var fornecedorViewModel = ObterFornecedorEndereco(id);
+
+            if (fornecedorViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(fornecedorViewModel);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            var fornecedorViewModel = ObterFornecedorEndereco(id);
+
+            if (fornecedorViewModel == null) return NotFound();
+
+            await _fornecedorRepository.Remover(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
         {
             return _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorEndereco(id));
+        }
+
+        private async Task<FornecedorViewModel> ObterFornecedorProdutosEndereco(Guid id)
+        {
+            return _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterFornecedorProdutosEndereco(id));
         }
     }
 }
