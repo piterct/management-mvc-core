@@ -25,7 +25,19 @@ namespace Gestao.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterTodos()));
+            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
+        }
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var produtoViewModel = await ObterProduto(id);
+
+            if (produtoViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(produtoViewModel);
         }
 
         private async Task<ProdutoViewModel> ObterProduto(Guid id)
@@ -34,5 +46,7 @@ namespace Gestao.App.Controllers
             produto.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
             return produto;
         }
+
+    
     }
 }
