@@ -77,12 +77,41 @@ namespace Gestao.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produtoViewModel)
         {
-
             if (id != produtoViewModel.Id) return NotFound();
 
             if (!ModelState.IsValid) return View(produtoViewModel);
 
             await _produtoRepository.Atualizar(_mapper.Map<Produto>(produtoViewModel));
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var produto = await ObterProduto(id);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            return View(produto);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            var produto = await ObterProduto(id);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            await _produtoRepository.Remover(id);
 
             return RedirectToAction(nameof(Index));
         }
