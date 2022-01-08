@@ -1,6 +1,6 @@
 ﻿namespace Gestao.App.ViewModels
 {
-    public class FortnecedorViewModel
+    public class FornecedorViewModel
     {
     }
 }

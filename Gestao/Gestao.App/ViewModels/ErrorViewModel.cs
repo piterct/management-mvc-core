@@ -1,6 +1,4 @@
-using System;
-
-namespace Gestao.App.Models
+namespace Gestao.App.ViewModels
 {
     public class ErrorViewModel
     {
