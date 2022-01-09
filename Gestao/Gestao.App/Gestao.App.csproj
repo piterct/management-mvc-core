@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Gestao.Data\Gestao.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\imagens\" />
+  </ItemGroup>
+
 </Project>
