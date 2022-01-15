@@ -106,6 +106,17 @@ namespace Gestao.App.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> AtualizarEndereco(Guid id)
+        {
+            var fornecedor = await ObterFornecedorEndereco(id);
+
+            if (fornecedor == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_AtualizarEndereco", new FornecedorViewModel { Endereco = fornecedor.Endereco });
+        }
 
         private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
         {
