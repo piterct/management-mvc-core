@@ -56,7 +56,7 @@ namespace Gestao.App.Controllers
 
         public async Task<IActionResult> Edit(Guid id)
         {
-            var fornecedorViewModel = ObterFornecedorProdutosEndereco(id);
+            var fornecedorViewModel = await ObterFornecedorProdutosEndereco(id);
 
             if (fornecedorViewModel == null)
             {
@@ -83,7 +83,7 @@ namespace Gestao.App.Controllers
 
         public async Task<IActionResult> Delete(Guid id)
         {
-            var fornecedorViewModel = ObterFornecedorEndereco(id);
+            var fornecedorViewModel = await ObterFornecedorEndereco(id);
 
             if (fornecedorViewModel == null)
             {
