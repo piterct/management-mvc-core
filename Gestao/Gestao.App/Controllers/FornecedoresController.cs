@@ -145,9 +145,7 @@ namespace Gestao.App.Controllers
             await _enderecoRepository.Atualizar(_mapper.Map<Endereco>(fornecedorViewModel.Endereco));
 
             var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.FornecedorId });
-            return Json(new { success = true, url });
-
-            return PartialView("_AtualizarEndereco", fornecedorViewModel);
+            return Json(new { success = true, url });;
         }
 
         private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
