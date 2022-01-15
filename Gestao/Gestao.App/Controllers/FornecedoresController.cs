@@ -12,12 +12,15 @@ namespace Gestao.App.Controllers
     public class FornecedoresController : BaseController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly IEnderecoRepository _enderecoRepository;
         private readonly IMapper _mapper;
         public FornecedoresController(IFornecedorRepository fornecedorRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IEnderecoRepository enderecoRepository)
         {
             _fornecedorRepository = fornecedorRepository;
             _mapper = mapper;
+            _enderecoRepository = enderecoRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -116,6 +119,18 @@ namespace Gestao.App.Controllers
             }
 
             return PartialView("_AtualizarEndereco", new FornecedorViewModel { Endereco = fornecedor.Endereco });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AtualizarEndereco(FornecedorViewModel fornecedorViewModel)
+        {
+            if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", fornecedorViewModel);
+
+            await _enderecoRepository.Atualizar(_mapper.Map<Endereco>(fornecedorViewModel.Endereco));
+
+            var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.FornecedorId });
+            return Json(new { success = true, url });
         }
 
         private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
