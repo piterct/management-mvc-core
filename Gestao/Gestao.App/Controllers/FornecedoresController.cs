@@ -137,24 +137,17 @@ namespace Gestao.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AtualizarEndereco(FornecedorViewModel fornecedorViewModel)
         {
-            try
-            {
+            ModelState.Remove("Nome");
+            ModelState.Remove("Documento");
 
-                ModelState.Remove("Nome");
-                ModelState.Remove("Documento");
+            if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", fornecedorViewModel);
 
-                if (!ModelState.IsValid) return PartialView("_AtualizarEndereco", fornecedorViewModel);
+            await _enderecoRepository.Atualizar(_mapper.Map<Endereco>(fornecedorViewModel.Endereco));
 
-                await _enderecoRepository.Atualizar(_mapper.Map<Endereco>(fornecedorViewModel.Endereco));
+            var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.FornecedorId });
+            return Json(new { success = true, url });
 
-                var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.FornecedorId });
-                return Json(new { success = true, url });
-            }
-
-            catch (Exception ex)
-            {
-                 return PartialView("_AtualizarEndereco", fornecedorViewModel);
-            }
+            return PartialView("_AtualizarEndereco", fornecedorViewModel);
         }
 
         private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
