@@ -1,3 +1,4 @@
+using Gestao.App.Configuration;
 using Gestao.App.Data;
 using Gestao.App.Extensions;
 using Gestao.Business.Interfaces;
@@ -62,11 +63,7 @@ namespace Gestao.App
             });
             services.AddRazorPages();
 
-            services.AddScoped<GestaoDbContext>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
-            services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
+            services.ResolveDependencies();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
