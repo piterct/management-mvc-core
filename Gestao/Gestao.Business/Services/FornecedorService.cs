@@ -1,5 +1,7 @@
-﻿using Gestao.Business.Interfaces;
+﻿using FluentValidation;
+using Gestao.Business.Interfaces;
 using Gestao.Business.Models;
+using Gestao.Business.Models.Validations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +11,11 @@ namespace Gestao.Business.Services
 {
     public class FornecedorService : BaseService, IFornecedorService
     {
-        public Task Adicionar(Fornecedor fornecedor)
+        public async Task Adicionar(Fornecedor fornecedor)
         {
-            throw new NotImplementedException();
+            if (!ExecutarValidacao(new FornecedorValidation(), fornecedor)) return;
+
+
         }
 
         public Task Atualizar(Fornecedor fornecedor)
