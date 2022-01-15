@@ -24,7 +24,6 @@ namespace Gestao.Data.Mappings
                   .HasColumnType("varchar(8)");
 
             builder.Property(x => x.Complemento)
-                 .IsRequired()
                  .HasColumnType("varchar(250)");
 
             builder.Property(x => x.Bairro)

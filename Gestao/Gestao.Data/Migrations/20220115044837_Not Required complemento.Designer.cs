@@ -4,14 +4,16 @@ using Gestao.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gestao.Data.Migrations
 {
     [DbContext(typeof(GestaoDbContext))]
-    partial class GestaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220115044837_Not Required complemento")]
+    partial class NotRequiredcomplemento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
