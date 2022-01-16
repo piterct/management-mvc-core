@@ -60,6 +60,8 @@ namespace Gestao.App.Controllers
             var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
             await _fornecedorService.Adicionar(fornecedor);
 
+            if (!OperacaoValida()) return View(fornecedorViewModel);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -89,6 +91,8 @@ namespace Gestao.App.Controllers
             var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
             await _fornecedorService.Atualizar(fornecedor);
 
+            if (!OperacaoValida()) return View(fornecedorViewModel);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -115,6 +119,8 @@ namespace Gestao.App.Controllers
             if (fornecedorViewModel == null) return NotFound();
 
             await _fornecedorService.Remover(id);
+
+            if (!OperacaoValida()) return View(fornecedorViewModel);
 
             return RedirectToAction(nameof(Index));
         }
@@ -157,8 +163,10 @@ namespace Gestao.App.Controllers
 
             await _fornecedorService.AtualizarEndereco(_mapper.Map<Endereco>(fornecedorViewModel.Endereco));
 
+            if (!OperacaoValida()) return PartialView("_AtualizarEndereco", fornecedorViewModel);
+
             var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.FornecedorId });
-            return Json(new { success = true, url });;
+            return Json(new { success = true, url }); ;
         }
 
         private async Task<FornecedorViewModel> ObterFornecedorEndereco(Guid id)
