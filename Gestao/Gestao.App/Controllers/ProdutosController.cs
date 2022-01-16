@@ -21,7 +21,8 @@ namespace Gestao.App.Controllers
         public ProdutosController(IProdutoRepository produtoRepository,
                                  IFornecedorRepository fornecedorRepository,
                                  IMapper mapper,
-                                 IProdutoService produtoService)
+                                 IProdutoService produtoService,
+                                 INotificador notificador) : base(notificador)
         {
             _produtoRepository = produtoRepository;
             _mapper = mapper;
@@ -74,6 +75,8 @@ namespace Gestao.App.Controllers
             produtoViewModel.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
             await _produtoService.Adicionar(_mapper.Map<Produto>(produtoViewModel));
 
+            if(!OperacaoValida()) return View(produtoViewModel);
+
             return RedirectToAction("Index");
         }
 
@@ -121,6 +124,8 @@ namespace Gestao.App.Controllers
 
             await _produtoService.Atualizar(_mapper.Map<Produto>(produtoAtualizacao));
 
+            if (!OperacaoValida()) return View(produtoViewModel);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -150,6 +155,8 @@ namespace Gestao.App.Controllers
             }
 
             await _produtoService.Remover(id);
+
+            if (!OperacaoValida()) return View(produto);
 
             return RedirectToAction(nameof(Index));
         }
