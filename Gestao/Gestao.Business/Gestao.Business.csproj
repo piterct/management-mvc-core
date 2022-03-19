@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="Flunt" Version="1.0.5" />
   </ItemGroup>
 
 </Project>
