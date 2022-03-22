@@ -21,7 +21,7 @@ namespace Gestao.App.Controllers
             return !_notificador.TemNotificacao();
         }
 
-        protected bool ValidacaoCommand<TE>(TE entidade) where TE : CommandEntity
+        protected bool ValidaCommand<TE>(TE entidade) where TE : CommandEntity
         {
             entidade.Validate();
             if (entidade.Valid) return true;
