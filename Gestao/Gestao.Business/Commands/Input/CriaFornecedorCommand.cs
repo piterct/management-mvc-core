@@ -24,7 +24,7 @@ namespace Gestao.Business.Commands.Input
               .Requires()
               .IsNotNullOrEmpty(Nome, "Nome", "O Campo Nome é obrigatorio !")
                .IsNotNull(Ativo, "Ativo", "O Campo Ativo é obrigatorio !")
-              .IsNotNullOrEmpty(Documento, "Documento", "O Campo {0} é obrigatorio !")
+              .IsNotNullOrEmpty(Documento, "Documento", "O Campo Documento é obrigatorio !")
                );
         }
     }
