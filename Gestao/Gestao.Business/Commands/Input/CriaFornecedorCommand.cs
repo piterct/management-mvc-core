@@ -23,6 +23,7 @@ namespace Gestao.Business.Commands.Input
           new Contract()
               .Requires()
               .IsNotNullOrEmpty(Nome, "Nome", "O Campo {0} é obrigatorio !")
+               .IsNotNull(Ativo, "Nome", "O Campo Ativo é obrigatorio !")
               .IsNotNullOrEmpty(Documento, "Documento", "O Campo {0} é obrigatorio !")
                );
         }
