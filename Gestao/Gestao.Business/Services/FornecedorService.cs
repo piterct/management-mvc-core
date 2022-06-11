@@ -69,7 +69,7 @@ namespace Gestao.Business.Services
         public void Dispose()
         {
             _enderecoRepository?.Dispose();
-            _enderecoRepository?.Dispose();
+            _fornecedorRepository?.Dispose();
         }
     }
 }
