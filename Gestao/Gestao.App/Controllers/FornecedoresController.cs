@@ -32,7 +32,8 @@ namespace Gestao.App.Controllers
         [Route("lista-de-fornecedores")]
         public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
+            var fornecedores = await _fornecedorRepository.ObterTodos();
+            return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(fornecedores));
         }
 
 
