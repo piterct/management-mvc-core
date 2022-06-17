@@ -41,7 +41,7 @@ namespace Gestao.App.Controllers
         [Route("dados-do-fornecedor/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var fornecedorViewModel = await ObterFornecedorEndereco(id);
+            FornecedorViewModel fornecedorViewModel = await ObterFornecedorEndereco(id);
 
             if (fornecedorViewModel == null)
             {
