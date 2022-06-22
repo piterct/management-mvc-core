@@ -44,6 +44,8 @@ namespace Gestao.App
             services.AddRazorPages();
 
             services.ResolveDependencies();
+
+            services.EnableCache();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

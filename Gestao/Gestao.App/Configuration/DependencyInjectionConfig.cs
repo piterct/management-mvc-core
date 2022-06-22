@@ -1,4 +1,5 @@
-﻿using Gestao.App.Extensions;
+﻿using Gestao.App.Caching;
+using Gestao.App.Extensions;
 using Gestao.Business.Interfaces;
 using Gestao.Business.Notificacoes;
 using Gestao.Business.Services;
@@ -18,7 +19,6 @@ namespace Gestao.App.Configuration
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
-
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IFornecedorService, FornecedorService>();
             services.AddScoped<IProdutoService, ProdutoService>();
@@ -28,7 +28,8 @@ namespace Gestao.App.Configuration
 
         public static IServiceCollection EnableCache(this IServiceCollection services)
         {
-            
+            services.AddScoped<FornecedorRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorCaching<FornecedorRepository>>();
 
             return services;
         }
