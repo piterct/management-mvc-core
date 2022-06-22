@@ -72,21 +72,16 @@ namespace Gestao.App.Caching
             return await _inner.ObterFornecedorEndereco(id);
         }
 
-        private static string GetKey(string key)
+        public async Task Adicionar(Fornecedor entity)
         {
-            return $"{typeof(T).FullName}:{key}";
-        }
-  
-        public Task Adicionar(Fornecedor entity)
-        {
-            throw new NotImplementedException();
+            await _inner.Adicionar(entity);
         }
 
-        public Task Atualizar(Fornecedor entity)
+        public async Task Atualizar(Fornecedor entity)
         {
-            throw new NotImplementedException();
+            await _inner.Atualizar(entity);
         }
-      
+
         public Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
         {
             throw new NotImplementedException();
@@ -99,11 +94,16 @@ namespace Gestao.App.Caching
 
         public Task<int> SaveChanges()
         {
-           return _inner.SaveChanges();
+            return _inner.SaveChanges();
         }
         public void Dispose()
         {
             _inner?.Dispose();
+        }
+
+        private static string GetKey(string key)
+        {
+            return $"{typeof(T).FullName}:{key}";
         }
     }
 }
