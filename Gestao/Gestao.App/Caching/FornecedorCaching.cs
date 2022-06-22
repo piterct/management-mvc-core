@@ -84,12 +84,12 @@ namespace Gestao.App.Caching
 
         public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
         {
-           return await (_inner.ObterFornecedorProdutosEndereco(id));
+            return await (_inner.ObterFornecedorProdutosEndereco(id));
         }
 
-        public Task Remover(Guid id)
+        public async Task Remover(Guid id)
         {
-            throw new NotImplementedException();
+            await _inner.Remover(id);
         }
 
         public async Task<int> SaveChanges()
