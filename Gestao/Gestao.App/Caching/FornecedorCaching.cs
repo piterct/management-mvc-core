@@ -62,14 +62,32 @@ namespace Gestao.App.Caching
             return item;
         }
 
+        public async Task<Fornecedor> ObterFornecedorEndereco(Guid id)
+        {
+            var key = GetKey(id.ToString());
+            var item = _memoryCache.Get<Fornecedor>(key);
+
+            if (item == null)
+            {
+                _logger.LogTrace("Cache miss for {cacheKey}", key);
+                item = await _inner.ObterFornecedorEndereco(id);
+                if (item != null)
+                {
+                    _logger.LogTrace("Setting item in cache for {cacheKey}", key);
+                    _memoryCache.Set(key, item, TimeSpan.FromMinutes(1));
+                }
+            }
+            else
+            {
+                _logger.LogTrace("Cache hit for {cacheKey}", key);
+            }
+
+            return item;
+        }
+
         public async Task<IEnumerable<Fornecedor>> Buscar(Expression<Func<Fornecedor, bool>> predicate)
         {
             return await _inner.Buscar(predicate);
-        }
-
-        public async Task<Fornecedor> ObterFornecedorEndereco(Guid id)
-        {
-            return await _inner.ObterFornecedorEndereco(id);
         }
 
         public async Task Adicionar(Fornecedor entity)
