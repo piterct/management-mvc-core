@@ -82,9 +82,9 @@ namespace Gestao.App.Caching
             await _inner.Atualizar(entity);
         }
 
-        public Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
+        public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
         {
-            throw new NotImplementedException();
+           return await (_inner.ObterFornecedorProdutosEndereco(id));
         }
 
         public Task Remover(Guid id)
