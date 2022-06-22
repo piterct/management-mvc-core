@@ -25,5 +25,12 @@ namespace Gestao.App.Configuration
 
             return services;
         }
+
+        public static IServiceCollection EnableCache(this IServiceCollection services)
+        {
+            
+
+            return services;
+        }
     }
 }
