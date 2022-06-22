@@ -87,7 +87,48 @@ namespace Gestao.App.Caching
 
         public async Task<IEnumerable<Fornecedor>> Buscar(Expression<Func<Fornecedor, bool>> predicate)
         {
-            return await _inner.Buscar(predicate);
+            var key = GetKey(predicate.ToString());
+            var item = _memoryCache.Get<IEnumerable<Fornecedor>>(key);
+
+            if (item == null)
+            {
+                _logger.LogTrace("Cache miss for {cacheKey}", key);
+                item = await _inner.Buscar(predicate);
+                if (item != null)
+                {
+                    _logger.LogTrace("Setting item in cache for {cacheKey}", key);
+                    _memoryCache.Set(key, item, TimeSpan.FromMinutes(1));
+                }
+            }
+            else
+            {
+                _logger.LogTrace("Cache hit for {cacheKey}", key);
+            }
+
+            return item;
+        }
+
+        public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
+        {
+            var key = GetKey(id.ToString());
+            var item = _memoryCache.Get<Fornecedor>(key);
+
+            if (item == null)
+            {
+                _logger.LogTrace("Cache miss for {cacheKey}", key);
+                item = await _inner.ObterFornecedorProdutosEndereco(id);
+                if (item != null)
+                {
+                    _logger.LogTrace("Setting item in cache for {cacheKey}", key);
+                    _memoryCache.Set(key, item, TimeSpan.FromMinutes(1));
+                }
+            }
+            else
+            {
+                _logger.LogTrace("Cache hit for {cacheKey}", key);
+            }
+
+            return item;
         }
 
         public async Task Adicionar(Fornecedor entity)
@@ -98,11 +139,6 @@ namespace Gestao.App.Caching
         public async Task Atualizar(Fornecedor entity)
         {
             await _inner.Atualizar(entity);
-        }
-
-        public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
-        {
-            return await (_inner.ObterFornecedorProdutosEndereco(id));
         }
 
         public async Task Remover(Guid id)
