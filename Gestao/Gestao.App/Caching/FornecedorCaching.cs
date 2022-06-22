@@ -92,9 +92,9 @@ namespace Gestao.App.Caching
             throw new NotImplementedException();
         }
 
-        public Task<int> SaveChanges()
+        public async Task<int> SaveChanges()
         {
-            return _inner.SaveChanges();
+            return await _inner.SaveChanges();
         }
         public void Dispose()
         {
