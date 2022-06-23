@@ -1,6 +1,73 @@
-﻿namespace Gestao.App.Caching
+﻿using Gestao.Business.Interfaces;
+using Gestao.Business.Models;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+namespace Gestao.App.Caching
 {
-    public class ProdutoCaching
+    public class ProdutoCaching<T> : IProdutoRepository where T : IProdutoRepository
     {
+        private readonly IMemoryCache _memoryCache;
+        private readonly T _inner;
+        private readonly ILogger<ProdutoCaching<T>> _logger;
+
+        public Task Adicionar(Produto entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Atualizar(Produto entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Produto>> Buscar(Expression<Func<Produto, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Produto> ObterPorId(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Produto> ObterProdutoFornecedor(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Produto>> ObterProdutosFornecedores()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Produto>> ObterProdutosPorFornecedor(Guid fornecedorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Produto>> ObterTodos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Remover(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
