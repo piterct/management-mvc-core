@@ -30,11 +30,6 @@ namespace Gestao.App.Caching
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Produto> ObterPorId(Guid id)
         {
             throw new NotImplementedException();
@@ -68,6 +63,11 @@ namespace Gestao.App.Caching
         public Task<int> SaveChanges()
         {
             throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            _inner?.Dispose();
         }
     }
 }
