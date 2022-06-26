@@ -15,9 +15,9 @@ namespace Gestao.App.Caching
         private readonly T _inner;
         private readonly ILogger<ProdutoCaching<T>> _logger;
 
-        public Task Adicionar(Produto entity)
+        public async Task Adicionar(Produto entity)
         {
-            throw new NotImplementedException();
+            await _inner.Adicionar(entity);
         }
 
         public Task Atualizar(Produto entity)
