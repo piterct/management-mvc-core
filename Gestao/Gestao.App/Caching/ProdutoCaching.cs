@@ -55,9 +55,9 @@ namespace Gestao.App.Caching
             throw new NotImplementedException();
         }
 
-        public Task Remover(Guid id)
+        public async Task Remover(Guid id)
         {
-            throw new NotImplementedException();
+            await _inner.Remover(id);
         }
 
         public async Task<int> SaveChanges()
