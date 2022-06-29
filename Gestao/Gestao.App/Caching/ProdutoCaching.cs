@@ -50,9 +50,9 @@ namespace Gestao.App.Caching
             throw new NotImplementedException();
         }
 
-        public Task<List<Produto>> ObterTodos()
+        public async Task<List<Produto>> ObterTodos()
         {
-            throw new NotImplementedException();
+            return await _inner.ObterTodos();
         }
 
         public async Task Remover(Guid id)
