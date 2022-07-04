@@ -110,7 +110,7 @@ namespace Gestao.App.Caching
 
         public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
         {
-            var key = GetKey(string.Concat("fornecedor-produto-endereco",id.ToString()));
+            var key = GetKey(string.Concat("fornecedor-produtos-endereco",id.ToString()));
             var item = _memoryCache.Get<Fornecedor>(key);
 
             if (item == null)
