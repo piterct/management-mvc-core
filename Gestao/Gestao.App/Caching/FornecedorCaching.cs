@@ -24,7 +24,7 @@ namespace Gestao.App.Caching
 
         public async Task<List<Fornecedor>> ObterTodos()
         {
-            var key = "lista-de-fornecedores";
+            var key = "obter-todos-fornecedores";
             var item = _memoryCache.Get<List<Fornecedor>>(key);
 
             if (item == null)
