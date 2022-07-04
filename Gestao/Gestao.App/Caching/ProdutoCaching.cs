@@ -40,9 +40,9 @@ namespace Gestao.App.Caching
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Produto>> ObterProdutosFornecedores()
+        public async Task<IEnumerable<Produto>> ObterProdutosFornecedores()
         {
-            throw new NotImplementedException();
+           return await _inner.ObterProdutosFornecedores();
         }
 
         public async Task<IEnumerable<Produto>> ObterProdutosPorFornecedor(Guid fornecedorId)
