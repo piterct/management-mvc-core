@@ -25,9 +25,9 @@ namespace Gestao.App.Caching
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Produto>> Buscar(Expression<Func<Produto, bool>> predicate)
+        public async Task<IEnumerable<Produto>> Buscar(Expression<Func<Produto, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _inner.Buscar(predicate);
         }
 
         public async Task<Produto> ObterPorId(Guid id)
