@@ -20,9 +20,9 @@ namespace Gestao.App.Caching
             await _inner.Adicionar(entity);
         }
 
-        public Task Atualizar(Produto entity)
+        public async Task Atualizar(Produto entity)
         {
-            throw new NotImplementedException();
+            await _inner.Atualizar(entity);
         }
 
         public async Task<IEnumerable<Produto>> Buscar(Expression<Func<Produto, bool>> predicate)
