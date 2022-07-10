@@ -68,6 +68,7 @@ namespace Gestao.App.Caching
         public void Dispose()
         {
             _inner?.Dispose();
+            _memoryCache?.Dispose();
         }
     }
 }
