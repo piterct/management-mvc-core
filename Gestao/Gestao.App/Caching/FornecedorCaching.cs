@@ -150,14 +150,16 @@ namespace Gestao.App.Caching
         {
             return await _inner.SaveChanges();
         }
-        public void Dispose()
-        {
-            _inner?.Dispose();
-        }
 
         private static string GetKey(string key)
         {
             return $"{typeof(T).FullName}:{key}";
+        }
+
+        public void Dispose()
+        {
+            _inner?.Dispose();
+            _memoryCache?.Dispose();
         }
     }
 }
