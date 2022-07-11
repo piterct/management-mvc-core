@@ -1,5 +1,6 @@
 ﻿using Gestao.Business.Interfaces;
 using Gestao.Business.Models;
+using Gestao.Data.Repository;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Gestao.App.Caching
 {
-    public class FornecedorCaching<T> : IFornecedorRepository where T : IFornecedorRepository
+    public class FornecedorCaching<T> : 
+        BaseCaching<FornecedorRepository> ,
+        IFornecedorRepository where T : IFornecedorRepository
     {
         private readonly IMemoryCache _memoryCache;
         private readonly T _inner;
@@ -110,7 +113,7 @@ namespace Gestao.App.Caching
 
         public async Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id)
         {
-            var key = GetKey(string.Concat("fornecedor-produtos-endereco",id.ToString()));
+            var key = GetKey(string.Concat("fornecedor-produto-endereco:",id.ToString()));
             var item = _memoryCache.Get<Fornecedor>(key);
 
             if (item == null)
@@ -151,15 +154,14 @@ namespace Gestao.App.Caching
             return await _inner.SaveChanges();
         }
 
-        private static string GetKey(string key)
-        {
-            return $"{typeof(T).FullName}:{key}";
-        }
+        //private static string GetKey(string key)
+        //{
+        //    return $"{typeof(T).FullName}:{key}";
+        //}
 
         public void Dispose()
         {
             _inner?.Dispose();
-            _memoryCache?.Dispose();
         }
     }
 }
