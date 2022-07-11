@@ -15,7 +15,24 @@ namespace Gestao.App.Caching
         private readonly T _inner;
         private readonly ILogger<ProdutoCaching<T>> _logger;
 
-       
+        public async Task<List<Produto>> ObterTodos()
+        {
+            var key = "obter-todos-produtos";
+            var item = _memoryCache.Get<List<Produto>>(key);
+
+            if (item == null)
+            {
+                item = await _inner.ObterTodos();
+                if (item != null)
+                {
+                    _memoryCache.Set(key, item, TimeSpan.FromMinutes(1));
+                }
+            }
+
+            return item;
+        }
+
+
         public async Task<IEnumerable<Produto>> Buscar(Expression<Func<Produto, bool>> predicate)
         {
             return await _inner.Buscar(predicate);
@@ -23,7 +40,7 @@ namespace Gestao.App.Caching
 
         public async Task<Produto> ObterPorId(Guid id)
         {
-           return await _inner.ObterPorId(id);
+            return await _inner.ObterPorId(id);
         }
 
         public async Task<Produto> ObterProdutoFornecedor(Guid id)
@@ -33,17 +50,12 @@ namespace Gestao.App.Caching
 
         public async Task<IEnumerable<Produto>> ObterProdutosFornecedores()
         {
-           return await _inner.ObterProdutosFornecedores();
+            return await _inner.ObterProdutosFornecedores();
         }
 
         public async Task<IEnumerable<Produto>> ObterProdutosPorFornecedor(Guid fornecedorId)
         {
             return await _inner.ObterProdutosPorFornecedor(fornecedorId);
-        }
-
-        public async Task<List<Produto>> ObterTodos()
-        {
-            return await _inner.ObterTodos();
         }
 
         public async Task Adicionar(Produto entity)
