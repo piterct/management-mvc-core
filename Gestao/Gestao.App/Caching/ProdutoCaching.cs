@@ -15,16 +15,7 @@ namespace Gestao.App.Caching
         private readonly T _inner;
         private readonly ILogger<ProdutoCaching<T>> _logger;
 
-        public async Task Adicionar(Produto entity)
-        {
-            await _inner.Adicionar(entity);
-        }
-
-        public async Task Atualizar(Produto entity)
-        {
-            await _inner.Atualizar(entity);
-        }
-
+       
         public async Task<IEnumerable<Produto>> Buscar(Expression<Func<Produto, bool>> predicate)
         {
             return await _inner.Buscar(predicate);
@@ -54,6 +45,17 @@ namespace Gestao.App.Caching
         {
             return await _inner.ObterTodos();
         }
+
+        public async Task Adicionar(Produto entity)
+        {
+            await _inner.Adicionar(entity);
+        }
+
+        public async Task Atualizar(Produto entity)
+        {
+            await _inner.Atualizar(entity);
+        }
+
 
         public async Task Remover(Guid id)
         {
