@@ -32,15 +32,15 @@ namespace Gestao.App.Caching
             return item;
         }
 
+        public async Task<Produto> ObterPorId(Guid id)
+        {
+            return await _inner.ObterPorId(id);
+        }
+
 
         public async Task<IEnumerable<Produto>> Buscar(Expression<Func<Produto, bool>> predicate)
         {
             return await _inner.Buscar(predicate);
-        }
-
-        public async Task<Produto> ObterPorId(Guid id)
-        {
-            return await _inner.ObterPorId(id);
         }
 
         public async Task<Produto> ObterProdutoFornecedor(Guid id)
