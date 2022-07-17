@@ -34,7 +34,25 @@ namespace Gestao.App.Caching
 
         public async Task<Produto> ObterPorId(Guid id)
         {
-            return await _inner.ObterPorId(id);
+            var key = GetKey(id.ToString());
+            var item = _memoryCache.Get<Fornecedor>(key);
+
+            if (item == null)
+            {
+                _logger.LogTrace("Cache miss for {cacheKey}", key);
+                item = await _inner.ObterPorId(id);
+                if (item != null)
+                {
+                    _logger.LogTrace("Setting item in cache for {cacheKey}", key);
+                    _memoryCache.Set(key, item, TimeSpan.FromMinutes(1));
+                }
+            }
+            else
+            {
+                _logger.LogTrace("Cache hit for {cacheKey}", key);
+            }
+
+            return item;
         }
 
 
