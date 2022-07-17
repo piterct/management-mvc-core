@@ -1,5 +1,6 @@
 ﻿using Gestao.Business.Interfaces;
 using Gestao.Business.Models;
+using Gestao.Data.Repository;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gestao.App.Caching
 {
-    public class ProdutoCaching<T> : IProdutoRepository where T : IProdutoRepository
+    public class ProdutoCaching<T> : BaseCaching<ProdutoRepository>, IProdutoRepository where T : IProdutoRepository
     {
         private readonly IMemoryCache _memoryCache;
         private readonly T _inner;
@@ -35,7 +36,7 @@ namespace Gestao.App.Caching
         public async Task<Produto> ObterPorId(Guid id)
         {
             var key = GetKey(id.ToString());
-            var item = _memoryCache.Get<Fornecedor>(key);
+            var item = _memoryCache.Get<Produto>(key);
 
             if (item == null)
             {
