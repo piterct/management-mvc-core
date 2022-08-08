@@ -2,9 +2,11 @@
 using Gestao.App.Extensions;
 using Gestao.Business.Interfaces;
 using Gestao.Business.Notificacoes;
+using Gestao.Business.Queries.Fornecedor;
 using Gestao.Business.Services;
 using Gestao.Data.Context;
 using Gestao.Data.Repository;
+using Gestao.Data.Repository.Queries;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,6 +24,7 @@ namespace Gestao.App.Configuration
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IFornecedorService, FornecedorService>();
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IFornecedorQuery,FornecedorQuery>();
 
             return services;
         }
