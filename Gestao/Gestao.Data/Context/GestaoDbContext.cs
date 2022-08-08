@@ -1,5 +1,7 @@
 ﻿using Gestao.Business.Models;
+using Gestao.Business.Queries.Fornecedor;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Gestao.Data.Context
@@ -11,6 +13,7 @@ namespace Gestao.Data.Context
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
+        public DbSet<FornecedorResult> FornecedorResults { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
