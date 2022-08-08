@@ -3,6 +3,7 @@ using Gestao.App.Extensions;
 using Gestao.App.ViewModels;
 using Gestao.Business.Interfaces;
 using Gestao.Business.Models;
+using Gestao.Business.Queries.Fornecedor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,14 +18,17 @@ namespace Gestao.App.Controllers
         private readonly IFornecedorRepository _fornecedorRepository;
         private readonly IFornecedorService _fornecedorService;
         private readonly IMapper _mapper;
+        private readonly IFornecedorQuery _fornecedorQuery;
         public FornecedoresController(IFornecedorRepository fornecedorRepository,
             IMapper mapper,
             IFornecedorService fornecedorService,
-            INotificador notificador) : base(notificador)
+            INotificador notificador,
+            IFornecedorQuery fornecedorQuery) : base(notificador)
         {
             _fornecedorRepository = fornecedorRepository;
             _mapper = mapper;
             _fornecedorService = fornecedorService;
+            _fornecedorQuery = fornecedorQuery;
         }
 
 
@@ -34,6 +38,22 @@ namespace Gestao.App.Controllers
         {
             var fornecedores = await _fornecedorRepository.ObterTodos();
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(fornecedores));
+        }
+
+        [AllowAnonymous]
+        [Route("lista-de-fornecedores-query")]
+        public async Task<IActionResult> FornecedoresQuery()
+        {
+            var fornecedores = await _fornecedorQuery.ObterTodos();
+            return Ok(fornecedores);
+        }
+
+        [AllowAnonymous]
+        [Route("lista-de-fornecedores-query-procedure")]
+        public async Task<IActionResult> FornecedoresQueryProcedure()
+        {
+            var fornecedores = await _fornecedorQuery.ObterTodosProcedure();
+            return Ok(fornecedores);
         }
 
 
