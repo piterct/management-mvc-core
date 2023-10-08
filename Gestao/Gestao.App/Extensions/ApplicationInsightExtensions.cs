@@ -1,6 +1,13 @@
-﻿namespace Gestao.App.Extensions
+﻿using Gestao.App.Middlewares;
+using Microsoft.AspNetCore.Builder;
+
+namespace Gestao.App.Extensions
 {
-    public class ApplicationInsightExtensions
+    public static class ApplicationInsightExtensions
     {
+        public static IApplicationBuilder UseRequestBodyLogging(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<RequestBodyLoggingMiddleware>();
+        }
     }
 }
