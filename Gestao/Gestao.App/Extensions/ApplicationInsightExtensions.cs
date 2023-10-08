@@ -9,5 +9,10 @@ namespace Gestao.App.Extensions
         {
             return builder.UseMiddleware<RequestBodyLoggingMiddleware>();
         }
+
+        public static IApplicationBuilder UseResponseBodyLogging(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<ResponseBodyLoggingMiddleware>();
+        }
     }
 }
